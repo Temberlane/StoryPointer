@@ -21,10 +21,26 @@ The goal is not to replace human judgment, but to **provide guidance** and **cal
 - Historical datasets are small and noisy.  
 - This project explores whether embedding-based ML models can capture **relative complexity trends** and provide useful input into estimation conversations.  
 
+## Running and Building
+This project is using uv as the virtual environment manager.
+source .venv/bin/activate 
+
 
 ## References
 For raw data
 https://solar.cs.ucl.ac.uk/pdf/tawosi2022msr.pdf
 https://github.com/morakotch/datasets/tree/master
 
-This paper suggests that current methods 
+This paper suggests that current methods that rely solely on story descriptions provide an inaccurate baseline.
+https://arxiv.org/pdf/2201.05401
+Main reason that this repo strives to provide meeting augmented AI prediction. A lot of context is needed for proper story pointing and estimation. 
+Normally, story descriptions are not all encompassing of the potential blockers, dependencies or pre-existing work.
+
+This paper suggests an ML model to estimate story points in agile software development.
+Instead of treating story point prediction as a pure regression problem, they used a comparative learning approach.
+They compared pairs of issues to learn relative complexity.
+Then, they used those comparisons to better predict story points.
+The main idea was to overcome the noisy and subjective nature of raw story point labels by leveraging pairwise judgments.
+https://arxiv.org/pdf/2507.14642
+My per-team fine-tuning path removes the main operational "tax" of the comparative-learning paper (no pairwise data, simpler training/inference), while directly tackling cross-team scale drift. 
+
