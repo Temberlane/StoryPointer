@@ -24,7 +24,8 @@ The goal is not to replace human judgment, but to **provide guidance** and **cal
 ## Running and Building
 This project is using uv as the virtual environment manager.
 source .venv/bin/activate 
-
+pre-commit install
+pre-commit run --all-files
 
 ## References
 For raw data
