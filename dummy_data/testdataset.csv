@@ -1,0 +1,8 @@
+issuekey,title,description,storypoint
+TESB-1,"Investigation: S1 Improved user experience with TOS/TIS/ESB Studio",NULL,5
+TESB-2,"Investigate: S2 Business Service Implementation and provider registration in TOS/TIS/Studio",NULL,5
+TESB-3,"Investigate: S3 Improved XML Data Handling Components in TOS/TIS/Studio",NULL,5
+TESB-4,"Investigate: S7 TIS RTx based on the Service Factory",NULL,5
+TESB-5,"Investigate: github migration new opportunities and challenges",NULL,5
+TESB-6,"S9 Investigate MDM Call ESB Provider from MDM Trigger","NULL123",5
+TESB-33,"Common - Setup ESB Runtime Code Repositories (gitHub)","Code Repository: It is expected that we setup a new git (gitHub) Code Repository for the 'new' Talend ESB Development Tasks with the goal that this repository contains all of our artefacts which will be later on part of the new ESB 4.0 and higher code base. ",3
