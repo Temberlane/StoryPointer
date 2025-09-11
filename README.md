@@ -2,6 +2,7 @@
 
 ## Overview  
 This project uses machine learning to **predict Agile story points** from user stories (e.g., Jira issues, GitHub issues). By training on public datasets of labeled stories, the model learns to approximate how teams assign effort values to stories.  
+The main goal is to use LLMs to augment results obtained from an a conventional regression model.
 
 The goal is not to replace human judgment, but to **provide guidance** and **calibration** for estimation, especially when teams want to reduce bias or speed up sprint planning.  
 
@@ -45,3 +46,5 @@ The main idea was to overcome the noisy and subjective nature of raw story point
 https://arxiv.org/pdf/2507.14642
 My per-team fine-tuning path removes the main operational "tax" of the comparative-learning paper (no pairwise data, simpler training/inference), while directly tackling cross-team scale drift. 
 
+This paper suggests a post-hoc corrector to propose corrections for the predictions of an arbitrary ML model.
+https://arxiv.org/pdf/2402.13414
