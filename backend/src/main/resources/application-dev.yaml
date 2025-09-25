@@ -1,0 +1,19 @@
+logging:
+  level:
+    root: INFO
+    com.example.storypointer: DEBUG
+
+app:
+  storage:
+    in-memory-fallback: true
+  prediction:
+    mock: true
+    model-version: dev-mock
+  transcription:
+    implementation: mock
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html

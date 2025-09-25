@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storypointer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storypointer
+  template:
+    metadata:
+      labels:
+        app: storypointer
+    spec:
+      containers:
+        - name: storypointer
+          image: storypointeracr.azurecr.io/storypointer-backend:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: AZ_BLOB_CONN
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: AZ_BLOB_CONN
+            - name: GCLOUD_KEY_JSON
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: GCLOUD_KEY_JSON
+            - name: TRANSCRIBER_IMPL
+              value: "gcloud"
+            - name: MODEL_PATH
+              value: "/app/model/model.onnx"
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "1"
+      imagePullSecrets:
+        - name: acr-auth

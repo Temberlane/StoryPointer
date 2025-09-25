@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: storypointer
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+logging:
+  level:
+    root: INFO
+    com.example.storypointer: DEBUG
+
+app:
+  storage:
+    blob-connection: ${AZ_BLOB_CONN:}
+    video-container: ${BLOB_CONTAINER_VIDEOS:videos}
+    transcript-container: ${BLOB_CONTAINER_TRANSCRIPTS:transcripts}
+    in-memory-fallback: false
+  prediction:
+    model-path: ${MODEL_PATH:model/model.onnx}
+    model-version: ${MODEL_VERSION:0.1.0}
+    mock: ${APP_PREDICTION_MOCK:false}
+  transcription:
+    implementation: ${TRANSCRIBER_IMPL:mock}
+    diarization: true
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /openapi.yaml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+server:
+  port: ${PORT:8080}

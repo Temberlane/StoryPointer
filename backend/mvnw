@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+MVNW_HOME="$(cd "$(dirname "$0")" && pwd)"
+MVNW_CMD="mvn"
+if [ -n "$JAVA_HOME" ]; then
+  JAVA_CMD="$JAVA_HOME/bin/java"
+else
+  JAVA_CMD="java"
+fi
+if ! command -v "$MVNW_CMD" >/dev/null 2>&1; then
+  echo "Apache Maven is required to run this project. Please install Maven or replace mvnw with the official wrapper." >&2
+  exit 1
+fi
+exec "$MVNW_CMD" "$@"

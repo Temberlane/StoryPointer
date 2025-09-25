@@ -1,0 +1,76 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: #f5f7fb;
+}
+
+header {
+  background: #162d4d;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+main {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+button {
+  background: #3478f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #adb5bd;
+  cursor: not-allowed;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.highlight-list {
+  list-style: none;
+  padding: 0;
+}
+
+.highlight-list li {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background: #eef4ff;
+  border-radius: 4px;
+}
+
+.transcript {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background: white;
+}
+
+.segment {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.segment:last-child {
+  border-bottom: none;
+}

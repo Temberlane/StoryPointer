@@ -1,0 +1,203 @@
+openapi: 3.0.3
+info:
+  title: StoryPointer API
+  version: 0.1.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /videos:
+    post:
+      summary: Upload a video or reference URL
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VideoUploadUrlRequest'
+      responses:
+        '200':
+          description: Upload accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoUploadResponse'
+  /videos/{videoId}/status:
+    get:
+      summary: Retrieve video processing status
+      parameters:
+        - in: path
+          name: videoId
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Status response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoStatusResponse'
+        '404':
+          description: Video not found
+  /videos/{videoId}/transcript:
+    get:
+      summary: Retrieve processed transcript
+      parameters:
+        - in: path
+          name: videoId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Transcript
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscriptResponse'
+        '404':
+          description: Transcript not ready
+  /predict:
+    post:
+      summary: Run ONNX model prediction for a video transcript
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PredictRequest'
+      responses:
+        '200':
+          description: Prediction response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredictResponse'
+  /qa:
+    post:
+      summary: Simple transcript QA helper
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QaRequest'
+      responses:
+        '200':
+          description: QA response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QaResponse'
+components:
+  schemas:
+    VideoUploadUrlRequest:
+      type: object
+      properties:
+        sourceUrl:
+          type: string
+      required:
+        - sourceUrl
+    VideoUploadResponse:
+      type: object
+      properties:
+        videoId:
+          type: string
+        status:
+          type: string
+    VideoStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+    TranscriptSegment:
+      type: object
+      properties:
+        start:
+          type: number
+        end:
+          type: number
+        text:
+          type: string
+        speaker:
+          type: string
+    TranscriptResponse:
+      type: object
+      properties:
+        videoId:
+          type: string
+        language:
+          type: string
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptSegment'
+        durationSec:
+          type: number
+        diarization:
+          type: boolean
+    PredictRequest:
+      type: object
+      properties:
+        videoId:
+          type: string
+        query:
+          type: string
+      required:
+        - videoId
+    Highlight:
+      type: object
+      properties:
+        text:
+          type: string
+        start:
+          type: number
+        end:
+          type: number
+    PredictResponse:
+      type: object
+      properties:
+        videoId:
+          type: string
+        modelVersion:
+          type: string
+        prediction:
+          type: string
+        score:
+          type: number
+        featuresUsed:
+          type: array
+          items:
+            type: string
+        highlights:
+          type: array
+          items:
+            $ref: '#/components/schemas/Highlight'
+    QaRequest:
+      type: object
+      properties:
+        videoId:
+          type: string
+        question:
+          type: string
+      required:
+        - videoId
+        - question
+    QaResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+        citations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Highlight'
